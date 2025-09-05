@@ -7,7 +7,7 @@ import httpx
 
 app = FastAPI(title="SmartChat (FastAPI → Ollama)")
 
-OLLAMA_URL = os.getenv("OLLAMA_URL", "http://ollama:11434")
+OLLAMA_URL = os.getenv("OLLAMA_URL", "http://ollama:11444")
 DEFAULT_MODEL = os.getenv("OLLAMA_MODEL", "smollm2:135m")
 
 class ChatRequest(BaseModel):
