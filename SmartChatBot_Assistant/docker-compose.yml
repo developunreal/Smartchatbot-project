@@ -1,0 +1,32 @@
+# docker-compose.yml
+version: "3.8"
+
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    environment:
+      - OLLAMA_HOST=0.0.0.0:11444
+      - OLLAMA_ORIGINS=*
+    volumes:
+      - ollama_data:/root/.ollama
+    ports:
+      - "11444:11444"
+    restart: unless-stopped
+
+  fastapi:
+    build:
+      context: ./fastapi
+    container_name: smartchat
+    depends_on:
+      - ollama
+    environment:
+      - OLLAMA_URL=http://ollama:11444
+      - OLLAMA_MODEL=smollm2:135m
+    ports:
+      - "8081:8081"
+    restart: unless-stopped
+
+volumes:
+  ollama_data:
+
